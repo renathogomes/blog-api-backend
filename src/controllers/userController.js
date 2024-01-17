@@ -7,11 +7,12 @@ const userNewUserToken = async (req, res) =>  {
   try {
     const { displayName, email, password, image } = req.body;
 
-    // Criar novo usuário
-    const newUser = await userService.createUser(displayName, email, password, image);
+    await userService.createUser(displayName, email, password, image);
+
+    const emailUser = newUser.email;
 
     // Configurar informações do token
-    const tokenData = { data: newUser.email };
+    const tokenData = { data: { emailUser } };
 
     // Gerar token JWT
     const token = jwt.sign(tokenData, secret, { expiresIn: '7d', algorithm: 'HS256' });
