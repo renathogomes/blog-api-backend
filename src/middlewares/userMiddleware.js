@@ -27,7 +27,6 @@ const userMiddleware = async (req, res, next) => {
 
     next();
   } catch (err) {
-    console.error('Error when verifying user by email:', err);
     return res.status(500).json({ message: 'Internal server error.' });
   }
 };
