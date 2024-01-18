@@ -12,6 +12,6 @@ const createUser = async (displayName, email, password, image) => {
     console.error('Error during user creation:', error);
     throw error;
   }
-}
+};
 
 module.exports = createUser;

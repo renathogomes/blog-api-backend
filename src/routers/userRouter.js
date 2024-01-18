@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
 const { userController } = require('../controllers');
-const { userMiddleware } = require('../middlewares');
+const { userMiddleware, validEmailMiddleware } = require('../middlewares');
 
-router.post('/', userMiddleware, userController);
+router.post('/', validEmailMiddleware, userMiddleware, userController);
 
 module.exports = router;
