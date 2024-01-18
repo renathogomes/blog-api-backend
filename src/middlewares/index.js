@@ -1,9 +1,9 @@
 const loginMiddleware = require('./loginMiddleware');
 const userMiddleware = require('./userMiddleware');
-const validEmailMiddleware = require('./validEmailMiddleware');
+const userEmailMiddleware = require('./userEmailMiddleware');
 
 module.exports = {
   loginMiddleware,
   userMiddleware,
-  validEmailMiddleware,
+  userEmailMiddleware,
 };

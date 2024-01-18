@@ -1,13 +1,10 @@
 const jwt = require('jsonwebtoken');
-const { userService } = require('../services');
 
 const secret = process.env.JWT_SECRET;
 
 const userNewUserToken = async (req, res) => {
   try {
-    const { displayName, email, password, image } = req.body;
-
-    await userService.createUser(displayName, email, password, image);
+    const { email } = req.body;
 
     const tokenConfig = {
       expiresIn: '7d',

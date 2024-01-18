@@ -1,3 +1,5 @@
+// const { loginService } = require('../services');
+
 const displayNameValidation = (displayName) => (displayName.length < 8 || !displayName);
 
 const userMiddleware = (req, res, next) => {
@@ -17,6 +19,10 @@ const userMiddleware = (req, res, next) => {
     return res.status(400)
       .json({ message: '"password" length must be at least 6 characters long' });
   }
+
+  // if (loginService.findEmail(email)) {
+  //   return res.status(409).json({ message: 'Email already registered' });
+  // }
 
   next();
 };
