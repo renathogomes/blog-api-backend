@@ -5,12 +5,12 @@ const secret = process.env.JWT_SECRET;
 const userNewUserToken = async (req, res) => {
   try {
     const { email } = req.body;
-
+    
     const tokenConfig = {
       expiresIn: '7d',
       algorithm: 'HS256',
     };
-
+    
     const token = jwt.sign({ data: { email } }, secret, tokenConfig);
 
     return res.status(201).json({ token });
