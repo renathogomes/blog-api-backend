@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 
+const userService = require('../services/userService');
+
 const secret = process.env.JWT_SECRET;
 
 const userNewUserToken = async (req, res) => {
@@ -20,4 +22,17 @@ const userNewUserToken = async (req, res) => {
   }
 };
 
-module.exports = userNewUserToken;
+const getAllUsers = async (_req, res) => {
+  try {
+    const users = await userService.getAllUsers();
+    return res.status(200).json(users);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: 'Internal Error' });
+  }
+};
+
+module.exports = {
+  userNewUserToken,
+  getAllUsers,
+};

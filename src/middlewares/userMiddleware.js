@@ -1,4 +1,7 @@
+// const { loginService } = require('../services');
+
 const displayNameValidation = (displayName) => (displayName.length < 8 || !displayName);
+const passwordValidation = (password) => (password.length < 6 || !password);
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -14,12 +17,12 @@ const userMiddleware = async (req, res, next) => {
     return res.status(400).json({ message: '"email" must be a valid email' });
   }
 
-  if (password.length < 6) {
+  if (passwordValidation(password)) {
     return res.status(400)
       .json({ message: '"password" length must be at least 6 characters long' });
   }
 
-  // const user = await User.findOne({ where: { email } });
+  // const user = await loginService.getByEmail(email);
   // if (user) {
   //   return res.status(409).json({ message: 'User already registered' });
   // }
