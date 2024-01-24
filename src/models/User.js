@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             type: DataTypes.INTEGER
         },
-        display_name: {
+        displayName: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         tableName: 'users',
         timestamps: false,
+        underscored: true,
     });
 
     return User;

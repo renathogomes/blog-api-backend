@@ -1,7 +1,5 @@
 'use strict';
 
-const { allow } = require('joi');
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
