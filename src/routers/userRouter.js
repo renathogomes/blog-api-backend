@@ -12,5 +12,6 @@ router.post(
   userController.userNewUserToken,
 );
 router.get('/', tokenMiddleware, userController.getAllUsers);
+router.get('/:id', tokenMiddleware, userController.getUserById);
 
 module.exports = router;
