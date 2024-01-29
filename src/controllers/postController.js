@@ -6,17 +6,29 @@ const createPost = async (req, res) => {
   try {
     const { title, content, categoryIds } = req.body;
     const { userId } = await getUserToken(req.headers.authorization);
-    const { status, data } = await postService.createPost({ title, content, categoryIds, userId });
+    const result = await postService.createPost({ title, content, categoryIds, userId });
 
-    if (userId !== data.userId) return res.status(401).json({ message: 'Unauthorized' });
+    if (userId !== result.userId) return res.status(401).json({ message: 'Unauthorized' });
 
-    return res.status(status).json(data);
+    return res.status(201).json(result);
   } catch (error) {
     console.log(error);
     return res.status(201).json({ message: 'Internal Error' });
   }
 };
 
+const getPost = async (_req, res) => {
+  try {
+    const result = await postService.getPost();
+
+    return res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: 'Internal Error' });
+  }
+};
+
 module.exports = {
   createPost,
+  getPost,
 };

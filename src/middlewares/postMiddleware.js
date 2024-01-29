@@ -13,8 +13,9 @@ const postMiddleware = async (req, res, next) => {
   const { categoryIds } = req.body;
   const categoryAll = await categoryService.getAllCategories();
 
-  const category = categoryIds.every((id) => categoryAll.some((cat) => cat.id === id));
-  if (!category) {
+  const categoryValid = categoryIds.every((categoryId) => categoryAll
+    .some((category) => category.id === categoryId));
+  if (!categoryValid) {
     return res.status(400).json({ message: 'one or more "categoryIds" not found' });
   }
 

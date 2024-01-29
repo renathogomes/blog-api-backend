@@ -20,11 +20,15 @@ const createPost = async ({ title, content, categoryIds, userId }) => {
       await PostCategory.create({ postId, categoryId }, { transaction: t });
     });
     await Promise.all(postCategories);
+    
     return post;
   });
-  return { status: 201, data: transactinPost };
+  return transactinPost;
 };
+
+const getPost = () => BlogPost.findAll();
 
 module.exports = {
   createPost,
+  getPost,
 };
