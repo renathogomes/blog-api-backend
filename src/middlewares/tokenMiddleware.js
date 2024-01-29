@@ -3,13 +3,13 @@ const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET;
 
 const tokenValidate = (req, res, next) => {
-  const authToken = req.header('Authorization');
+  const bearerToken = req.header('Authorization');
   try {
-    if (!authToken) {
+    if (!bearerToken) {
       return res.status(401).json({ message: 'Token not found' });
     }
     
-    const token = authToken.split(' ')[1];
+    const token = bearerToken.split(' ')[1];
     const payload = jwt.verify(token, secret);
 
     req.user = payload;
