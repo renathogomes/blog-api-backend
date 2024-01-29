@@ -6,9 +6,11 @@ const createPost = async (req, res) => {
   try {
     const { title, content, categoryIds } = req.body;
     const { userId } = await getUserToken(req.headers.authorization);
-    const post = await postService.createPost({ userId, title, content, categoryIds });
+    const { status, data } = await postService.createPost({ title, content, categoryIds, userId });
 
-    return res.status(201).json(post);
+    if (userId !== data.userId) return res.status(401).json({ message: 'Unauthorized' });
+
+    return res.status(status).json(data);
   } catch (error) {
     console.log(error);
     return res.status(201).json({ message: 'Internal Error' });
