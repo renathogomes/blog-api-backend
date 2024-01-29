@@ -1,24 +1,21 @@
-const { Category } = require('../models');
+const { categoryService } = require('../services');
 
-const postValidation = async (req, res, next) => {
-  const { title, content, categoryId } = req.body;
-  if (!title || !content || !categoryId) {
+const postMiddleware = async (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
+  if (!title || !content || !categoryIds) {
     return res.status(400).json({ message: 'Some required fields are missing' });
   }
-  next();
-};
 
-const categoryIdValidation = async (req, res, next) => {
-  const { categoryIds } = req.body;
-  const promises = categoryIds.map((id) => Category.findByPk(id));
+  const categoryAll = await categoryService.getAllCategories();
 
-  const categories = await Promise.all(promises);
-
-  if (categories.some((category) => category === null)) {
-    return res.status(404).json({ message: 'one or more "categoryIds" not found' });
+  const category = categoryIds.every((id) => categoryAll.some((cat) => cat.id === id));
+  if (!category) {
+    return res.status(400).json({ message: 'one or more "categoryIds" not found' });
   }
 
   next();
 };
 
-module.exports = { postValidation, categoryIdValidation };
+module.exports = {
+  postMiddleware,
+};

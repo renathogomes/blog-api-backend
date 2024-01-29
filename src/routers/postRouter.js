@@ -1,12 +1,12 @@
 const route = require('express').Router();
 
 const { postController } = require('../controllers');
-const { tokenMiddleware/* , postMiddleware */ } = require('../middlewares');
+const { tokenMiddleware, postMiddleware } = require('../middlewares');
 
 route.post(
   '/', 
   tokenMiddleware,
-  //   postMiddleware.categoryIdValidation,
+  postMiddleware.postMiddleware,
   postController.createPost,
 );
 
