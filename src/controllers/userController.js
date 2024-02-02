@@ -18,7 +18,7 @@ const getAllUsers = async (_req, res) => {
   try {
     const users = await userService.getAllUsers();
 
-    return res.status(200).json(users);
+    return res.status(users.status).json(users.data);
   } catch (error) {
     return res.status(500).json({ message: 'Internal Error' });
   }
