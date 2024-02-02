@@ -9,7 +9,7 @@ const createPost = async (req, res) => {
 
     if (userId !== result.userId) return res.status(401).json({ message: 'Unauthorized' });
 
-    return res.status(201).json(result);
+    return res.status(result.status).json(result.data);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: 'Internal Error' });
