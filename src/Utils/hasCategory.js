@@ -3,7 +3,7 @@ const { getCategories } = require('../services');
 const hasCategory = async (categoryIds) => {
   const categories = await getCategories();
   const categoryExists = categoryIds
-    .some((categoryId) => categories.some((category) => category.id === categoryId));
+    .every((categoryId) => categories.some((category) => category.id === categoryId));
   return categoryExists;
 };
 

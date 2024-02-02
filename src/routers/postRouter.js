@@ -6,14 +6,8 @@ const { tokenMiddleware, postMiddleware } = require('../middlewares');
 route.post(
   '/', 
   tokenMiddleware,
-  postMiddleware.postMiddleware,
   postMiddleware.postMiddlewareValidates,
   postController.createPost,
-);
-route.get(
-  '/', 
-  tokenMiddleware,
-  postController.getPost,
 );
 
 module.exports = route;

@@ -8,7 +8,6 @@ router.post(
   userMiddleware.displayNameValidation,
   userMiddleware.emailValidation,
   userMiddleware.passwordValidation,
-  // userMiddleware.userValidation,
   userController.userNewUserToken,
 );
 router.get('/', tokenMiddleware, userController.getAllUsers);
