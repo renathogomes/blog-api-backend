@@ -6,15 +6,15 @@ const { User } = require('../models');
 const login = async (email, password) => {
   const user = await User.findOne({ where: { email } });
 
-  if (!user || !(await user.checkPassword(password))) {
+  if (!user || !Object.is(user.password, password)) {
     return { status: 400, data: { message: 'Invalid fields' } };
   }
 
   // Se o usuário for encontrado e a senha corresponder, utilize a função "jwt.sign" para gerar um token JWT O payload do token deve ser um objeto contendo as propriedades "data" com um objeto contendo as propriedades "email" e "userId" (extraídas do usuário encontrado). Configure as opções do jwt com um tempo de expiração de 7 dias e o algoritmo 'HS256'. Retorne um objeto com status 200 e um objeto "data" contendo o token gerado.
-  const { id, name } = user;
+  const { id } = user;
   const token = jwt
     .sign(
-      { data: { email, userId: id, name } },
+      { data: { email, userId: id } },
       process.env.JWT_SECRET,
       { expiresIn: '7d', algorithm: 'HS256' },
     );
