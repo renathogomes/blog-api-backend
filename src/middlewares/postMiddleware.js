@@ -1,4 +1,4 @@
-const { categoryService } = require('../services');
+// const { categoryService } = require('../services');
 
 const postMiddlewareValidates = async (req, res, next) => {
   const { title, content, categoryIds } = req.body;
@@ -8,7 +8,7 @@ const postMiddlewareValidates = async (req, res, next) => {
 
   next();
 };
-
+/* 
 const postMiddleware = async (req, res, next) => {
   const { categoryIds } = req.body;
   const categoryAll = await categoryService.getAllCategories();
@@ -20,9 +20,9 @@ const postMiddleware = async (req, res, next) => {
   }
 
   next();
-};
+}; */
 
 module.exports = {
   postMiddlewareValidates,
-  postMiddleware,
+/*   postMiddleware, */
 };

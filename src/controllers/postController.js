@@ -20,7 +20,21 @@ const getPost = async (_req, res) => {
   try {
     const result = await postService.getPost();
 
-    return res.status(200).json(result);
+    return res.status(result.status).json(result.data);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: 'Internal Error' });
+  }
+};
+
+const getPostById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await postService.getPostById(id);
+
+    if (!result) return res.status(404).json({ message: 'Post does not exist' });
+
+    return res.status(result.status).json(result.data);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: 'Internal Error' });
@@ -30,4 +44,5 @@ const getPost = async (_req, res) => {
 module.exports = {
   createPost,
   getPost,
+  getPostById,
 };
