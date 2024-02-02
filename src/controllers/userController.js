@@ -5,9 +5,9 @@ const newUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
 
   try {
-    const user = await userService.newUser(displayName, email, password, image);
+    const user = await userService.createUser(displayName, email, password, image);
 
-    return res.status(201).json(user);
+    return res.status(user.status).json(user.data);
   } catch (error) {
     return res.status(500).json({ message: 'Internal Error' });
   }
