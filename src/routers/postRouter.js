@@ -1,6 +1,6 @@
 const route = require('express').Router();
 
-const { postController } = require('../controllers');
+const { postController, postController2 } = require('../controllers');
 const { tokenMiddleware, postMiddleware } = require('../middlewares');
 
 route.post(
@@ -13,5 +13,6 @@ route.post(
 
 route.get('/', tokenMiddleware, postController.getPost);
 route.get('/:id', tokenMiddleware, postController.getPostById);
+route.put('/:id', tokenMiddleware, postController2.updatePost);
 
 module.exports = route;
