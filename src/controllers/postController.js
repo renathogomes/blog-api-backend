@@ -7,7 +7,7 @@ const createPost = async (req, res) => {
     const { userId } = await getUserToken(req.headers.authorization);
     const result = await postService.createPost(title, content, categoryIds, userId);
 
-    if (userId !== result.userId) return res.status(401).json({ message: 'Unauthorized' });
+    if (!userId) return res.status(401).json({ message: 'Unauthorized' });
 
     return res.status(result.status).json(result.data);
   } catch (error) {
@@ -18,7 +18,7 @@ const createPost = async (req, res) => {
 
 const getPost = async (_req, res) => {
   try {
-    const result = await postService.getPost();
+    const result = await postService.getPosts();
 
     return res.status(result.status).json(result.data);
   } catch (error) {
