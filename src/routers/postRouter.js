@@ -19,5 +19,6 @@ route.put(
   postMiddleware.postMiddlewareUpdate,
   postController2.updatePost,
 );
+route.delete('/:id', tokenMiddleware, postController2.deletePost);
 
 module.exports = route;
