@@ -33,12 +33,11 @@ const createUser = async (displayName, email, password, image) => {
 
   // Se o usuário não existir, utilize a função "jwt.sign" para gerar um token JWT. O payload do token deve ser um objeto contendo as propriedades "data" com a propriedade "email". Configure as opções do jwt com um tempo de expiração de 7 dias e o algoritmo 'HS256'.
   const { id } = newUser;
-  const token = jwt
-    .sign(
-      { data: { email, userId: id, name: displayName } },
-      process.env.JWT_SECRET,
-      { expiresIn: '7d', algorithm: 'HS256' },
-    );
+  const token = jwt.sign(
+    { data: { email, userId: id, name: displayName } },
+    process.env.JWT_SECRET,
+    { expiresIn: '7d', algorithm: 'HS256' },
+  );
   return { status: 201, data: { token } };
 };
 
@@ -57,9 +56,11 @@ const getUserById = async (id) => {
   return { status: 200, data: user };
 };
 
-module.exports = {
-  login,
-  createUser,
-  getAllUsers,
-  getUserById,
+// Crie uma função assíncrona chamada deleteUserById que recebe um parâmetro "id". Utilize o método "destroy" do modelo "User" para deletar o usuário com o ID fornecido. Retorne um objeto com status 204.
+const deleteUserById = async (id) => {
+  await User.destroy({ where: { id } });
+  return { status: 204 };
+};
+
+module.exports = { login, createUser, getAllUsers, getUserById, deleteUserById,
 };

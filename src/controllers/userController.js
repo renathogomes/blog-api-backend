@@ -41,8 +41,22 @@ const getUserById = async (req, res) => {
   }
 };
 
+// Crie uma função assíncrona chamada deleteUser que recebe dois parâmetros: "req" e "res". Utilize a biblioteca 'userService' para deletar um usuário com base no ID fornecido através dos parâmetros da requisição.
+const deleteUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await userService.deleteUserById(id);
+
+    return res.status(user.status).end(); // Retorna uma resposta vazia com o código de status 204 (No Content) para indicar que o usuário foi deletado com sucesso.
+  } catch (error) {
+    return res.status(204).json({ message: 'Internal Error' });
+  }
+};
+
 module.exports = {
   newUser,
   getAllUsers,
   getUserById,
+  deleteUserById,
 };

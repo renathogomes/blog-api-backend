@@ -12,5 +12,6 @@ router.post(
 );
 router.get('/', tokenMiddleware, userController.getAllUsers);
 router.get('/:id', tokenMiddleware, userController.getUserById);
+router.delete('/me', tokenMiddleware, userController.deleteUserById);
 
 module.exports = router;
