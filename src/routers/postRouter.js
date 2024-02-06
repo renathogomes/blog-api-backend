@@ -7,6 +7,7 @@ route.post(
   '/', 
   tokenMiddleware,
   postMiddleware.postMiddlewareValidates,
+  postMiddleware.postAllCategoriesExists,
   postController.createPost,
 );
 

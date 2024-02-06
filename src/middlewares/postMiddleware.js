@@ -1,4 +1,4 @@
-// const { categoryService } = require('../services');
+const { categoryService } = require('../services');
 
 const postMiddlewareValidates = async (req, res, next) => {
   const { title, content, categoryIds } = req.body;
@@ -8,21 +8,22 @@ const postMiddlewareValidates = async (req, res, next) => {
 
   next();
 };
-/* 
-const postMiddleware = async (req, res, next) => {
-  const { categoryIds } = req.body;
-  const categoryAll = await categoryService.getAllCategories();
 
-  const categoryValid = categoryIds.every((categoryId) => categoryAll
-    .some((category) => category.id === categoryId));
-  if (!categoryValid) {
+const postAllCategoriesExists = async (req, res, next) => {
+  const { categoryIds } = req.body;
+  const categories = await categoryService.getAllCategories();
+
+  const allCategoriesExists = categoryIds
+    .every((categoryId) => categories.some((category) => category.id === categoryId));
+
+  if (!allCategoriesExists) {
     return res.status(400).json({ message: 'one or more "categoryIds" not found' });
   }
 
   next();
-}; */
+};
 
 module.exports = {
   postMiddlewareValidates,
-/*   postMiddleware, */
+  postAllCategoriesExists,
 };
