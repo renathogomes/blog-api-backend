@@ -1,13 +1,17 @@
-const { BlogPost } = require('../models/BlogPost');
-const { getPostById } = require('./postService');
+const { BlogPost } = require('../models');
+const servicePost = require('./postService');
 
 const updatePost = async (id, title, content, userId) => {
-  const { data } = await getPostById(id);
-  if (userId !== data.user.id) {
+  // Será validado que não é possível editar um blogpost com outro usuário que não seja o criador
+  const post = await servicePost.getPostById(id);
+  
+  if (post.data.userId !== userId) {
     return { status: 401, data: { message: 'Unauthorized user' } };
   }
   await BlogPost.update({ title, content }, { where: { id } });
-  const newPost = await getPostById(id);
+
+  const newPost = await servicePost.getPostById(id);
+  
   return { status: 200, data: newPost.data };
 };
 

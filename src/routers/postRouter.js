@@ -13,6 +13,11 @@ route.post(
 
 route.get('/', tokenMiddleware, postController.getPost);
 route.get('/:id', tokenMiddleware, postController.getPostById);
-route.put('/:id', tokenMiddleware, postController2.updatePost);
+route.put(
+  '/:id',
+  tokenMiddleware,
+  postMiddleware.postMiddlewareUpdate,
+  postController2.updatePost,
+);
 
 module.exports = route;

@@ -9,6 +9,15 @@ const postMiddlewareValidates = async (req, res, next) => {
   next();
 };
 
+const postMiddlewareUpdate = async (req, res, next) => {
+  const { title, content } = req.body;
+  if (!title || !content) {
+    return res.status(400).json({ message: 'Some required fields are missing' });
+  }
+
+  next();
+};
+
 const postAllCategoriesExists = async (req, res, next) => {
   const { categoryIds } = req.body;
   const categories = await categoryService.getAllCategories();
@@ -26,4 +35,5 @@ const postAllCategoriesExists = async (req, res, next) => {
 module.exports = {
   postMiddlewareValidates,
   postAllCategoriesExists,
+  postMiddlewareUpdate,
 };
