@@ -12,6 +12,6 @@ route.post(
 );
 
 route.get('/', tokenMiddleware, postController.getPost);
-route.get('/:id', postController.getPostById);
+route.get('/:id', tokenMiddleware, postController.getPostById);
 
 module.exports = route;

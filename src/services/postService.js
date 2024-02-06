@@ -46,11 +46,14 @@ const getPosts = async () => {
 
 // Crie uma função assíncrona chamada "getPostById" que recebe um parâmetro "id". Utilize os modelos 'BlogPost', 'User' e 'Category' do seu aplicativo. Certifique-se de que 'BlogPost' possui relacionamentos com 'User' e 'Category'
 const getPostById = async (id) => {
-  const post = await BlogPost.findOne({
-    where: { id },
-    include: [{ model: User, as: 'user' }, { model: Category, as: 'categories' }],
+  const post = await BlogPost.findOne({ where: { id },
+    include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } }],
   });
-  return { status: 200, data: { post } };
+
+  if (!post) return { status: 404, data: { message: 'Post does not exist' } };
+
+  return { status: 200, data: post };
 };
 
 module.exports = {
